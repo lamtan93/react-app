@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+/*
 function App() {
   return (
     <div className="App">
@@ -22,5 +23,13 @@ function App() {
     </div>
   );
 }
+*/
+/*
+const App = React.createElement(
+  'h1', null, 'HelloWorld'
+);
+ */
+
+ //const App = <h1>Bonjour</h1>
 
 export default App;
