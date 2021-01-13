@@ -2,11 +2,43 @@ import React from 'react';
 import './App.css';
 import MovieList from './movieList/MovieList';
 /**
- *Lesson "Children"
- *Ce sont les éléments insérés à l'intérieur d'un composant 
- *Accessible via props.children
+ *Lesson "Fragment"
+ *Cela nous permet de render des composant sans avoir besoin des balise HTML root ouverte et fermé
+ *Ex: 
+ *<div>
+ *  <ComposantA>
+ *  <ComposantB/>
+ *</div>
+ *Utilité : ne plus voir les élément root dans html rendu et par ex lors de la render un tableau 
+ <table>
+  <tbody>
+    <tr>
+      <Composant_td> //Le composant qui contient un fragment que des <td></td> sans l'élément root html
+    </tr>
+  </tbody>
+ </table>
+
+ const Composant_td = (props)=>{
+   return(
+     <> //-> <React.Fragment>
+      <td>Celulle_1</td>
+      <td>Celulle_2</td>
+     </>
+   )
+ }
  */
 
+const Header = (props) =>{
+  return(
+    <div>Header</div>
+  )
+}
+
+const Footer = (props)=>{
+  return(
+    <div>Footer</div>
+  )
+}
 
 class Article extends React.Component{
   constructor(props){
@@ -35,13 +67,17 @@ export default class App extends React.Component{
  
     
   render(){
+   
     return (
-      <div>
+        <React.Fragment>
+        <Header/>
         <Article>
           <div>Article1</div>
           <div>Article2</div>
         </Article>
-      </div>
+        <Footer/>
+        </React.Fragment>
+      
     )
   }
 }
