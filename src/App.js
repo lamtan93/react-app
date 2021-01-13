@@ -1,31 +1,21 @@
 import React from 'react';
 import './App.css';
 import MovieList from './movieList/MovieList';
+import PropTypes from 'prop-types';
 /**
- *Lesson "Fragment"
- *Cela nous permet de render des composant sans avoir besoin des balise HTML root ouverte et fermé
- *Ex: 
- *<div>
- *  <ComposantA>
- *  <ComposantB/>
- *</div>
- *Utilité : ne plus voir les élément root dans html rendu et par ex lors de la render un tableau 
- <table>
-  <tbody>
-    <tr>
-      <Composant_td> //Le composant qui contient un fragment que des <td></td> sans l'élément root html
-    </tr>
-  </tbody>
- </table>
-
- const Composant_td = (props)=>{
-   return(
-     <> //-> <React.Fragment>
-      <td>Celulle_1</td>
-      <td>Celulle_2</td>
-     </>
-   )
- }
+ *Lesson "PropsTypes"
+ *Dans le composant qui reçoit les props(après avoir été instancié dans un autre composant)
+ *Ces props reçues sont mise sous controle par PropTypes de React
+ *PropTypes est un objet créé par nous meme, dedans défini les types attendus pour chaque props reçu
+ *Ex: adress: PropTypes.string
+ *    price: PropTypes.number
+ * ect... 
+ * Dans l'ex ci-dessous, la props passé dans le composant Article est <price>
+ * pour cette prop, on attend une valeur de tye number
+ * Si dans le composant Parent où instancie le composant enfant Article et lui passe une 
+ * prop de type par exemple String => Une erreur sera générée
+ * Error: Warning: Failed prop type: Invalid prop `price` of type `string` supplied to `Article`, expected `number`.
+ *
  */
 
 const Header = (props) =>{
@@ -43,24 +33,37 @@ const Footer = (props)=>{
 class Article extends React.Component{
   constructor(props){
     super(props);
-    console.log(props.children)
+    console.log(props)
   }
 
   render(){
     return (
       <div>
-        Le contenu de l'article
-        {this.props.children[0]}
-        {this.props.children[1]}
+        Le contenu de l'article <br/>
+        <span>Adress:</span> {this.props.price}
+        
       </div>
     )
   }
+
+}
+Article.propTypes = {
+  price : PropTypes.number
 }
 
 export default class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      
+      isOpen : true,
+      myCats: ['noir', 'corgi', 'camille'],
+      adress: <div>3 rue Froissart 59000 Lille</div>,
+      price: '350000',
+      codePostal: '59000',
+      visite: ()=>{
+        console.log('function visite');
+      }
       
     }
   }
@@ -71,7 +74,7 @@ export default class App extends React.Component{
     return (
         <React.Fragment>
         <Header/>
-        <Article>
+        <Article price={this.state.price}>
           <div>Article1</div>
           <div>Article2</div>
         </Article>
